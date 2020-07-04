@@ -2,6 +2,8 @@
 
 var toAtom = require('lib/convert').toAtom
 var toUnitString = require('lib/convert').toUnitString
+// Default fee amount imported from Cs-Wallet.
+var smileycoin = require('cs-wallet').bitcoin.networks.smileycoin
 
 function validateSend(wallet, to, unitValue, dynamicFees, callback) {
   var amount = toAtom(unitValue)
@@ -10,7 +12,14 @@ function validateSend(wallet, to, unitValue, dynamicFees, callback) {
 
   try {
     if (['bitcoin', 'bitcoincash', 'litecoin', 'smileycoin', 'testnet'].indexOf(wallet.networkName) !== -1) {
-      fee = Math.max(100000000,wallet.estimateFees(to, amount, [dynamicFees.minimum * 1000])[0]); // SKOÐA - min fee 1 SMLY
+      // Dynamic fees have not been implemented for the Smileycoin block explorer yet (June 2020).
+      // If dynamicFees is null, use feePerKb instead.
+      var isDynFee = dynamicFees != null && !isNaN(dynamicFees);
+      var feePerKb = smileycoin.feePerKb;
+      // dynamicFees is in satoshis per byte
+      var whichFee = isDynFee ? dynamicFees.minimum*1000 : feePerKb;
+
+      fee = Math.max(feePerKb, wallet.estimateFees(to, amount, [whichFee])[0]); 
     }
     tx = wallet.createTx(to, amount, fee)
   } catch(e) {
