@@ -119,9 +119,8 @@ function extendData(data) {
     data.fee = toUnitString(fees[0]);
 
   } else if (data.isSmileycoin) {
-    feeRates = [bitcoin.networks['smileycoin'].feePerKb || 100000];
+    feeRates = [bitcoin.networks['smileycoin'].feePerKb || 100000000];
     fees = Math.max(100000000, wallet.estimateFees(data.to, toAtom(data.amount), feeRates, unspents));
-    // fees=100000000;
     data.fee = toUnitString(fees);
 
   } else if (data.isEthereum) {
