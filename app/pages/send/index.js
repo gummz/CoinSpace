@@ -16,6 +16,7 @@ var resolveTo = require('lib/openalias/xhr.js').resolveTo;
 var qrcode = require('lib/qrcode');
 var bchaddr = require('bchaddrjs');
 
+
 module.exports = function(el){
   var selectedFiat = '';
   var defaultFiat = 'USD';
@@ -71,7 +72,7 @@ module.exports = function(el){
     resolveTo(to, function(data) {
       fixBitcoinCashAddress(data);
       getDynamicFees(function(dynamicFees) {
-        validateAndShowConfirm(data.to, data.alias, dynamicFees);
+        validateAndShowConfirm(data.to, data.alias, dynamicFees, null);
       });
     })
   })
@@ -98,6 +99,10 @@ module.exports = function(el){
       ractive.set('exchangeRates', rates);
       ractive.fire('bitcoin-to-fiat');
     });
+  })
+
+  emitter.once('wallet-ready', function() {
+    checkUrlForPrefill()
   })
 
   function initPreferredCurrency(currencies) {
@@ -155,9 +160,13 @@ module.exports = function(el){
     })
   })
 
-  function validateAndShowConfirm(to, alias, dynamicFees) {
+  function validateAndShowConfirm(to, alias, dynamicFees, amount) {
+    if (amount != null){
+      emitter.emit('prefill-value', amount, 'send');
+    }
     var amount = ractive.find('#bitcoin').value;
     var wallet = getWallet();
+    //ractive.find('#bitcoin').value = 20000
     if (wallet.networkName === 'ethereum') {
       wallet.gasLimit = ractive.find('#gas-limit').value;
     }
@@ -205,5 +214,21 @@ module.exports = function(el){
     } catch (e) {}
   }
 
+  function checkUrlForPrefill(){
+    var loc = window.location.search
+    loc = loc.split('&')
+    if (loc.length > 2) {
+      var add = loc[1].split('=')[1]
+      var amount = loc[2].split('=')[1]
+      ractive.set('validating', true);
+      var to = ractive.get('to');
+      resolveTo(to, function(data) {
+        fixBitcoinCashAddress(data);
+        getDynamicFees(function(dynamicFees) {
+          validateAndShowConfirm(add, data.alias, dynamicFees, amount);
+        });
+      })
+    }
+  }
   return ractive
 }

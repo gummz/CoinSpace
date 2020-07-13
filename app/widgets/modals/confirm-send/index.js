@@ -60,6 +60,7 @@ function open(data) {
       if (historyTx) {
         emitter.emit('append-transactions', [parseHistoryTx(historyTx)]);
       }
+      //updateUrl();
     });
   });
 
@@ -71,6 +72,20 @@ function open(data) {
 
   return ractive
 }
+
+
+function updateUrl(){
+  console.log("kallað á checkURL");
+  var loc = window.location.search
+  loc = loc.split('&')
+  if (loc.length > 2) {
+    window.location.href = loc[0]
+  }
+  return 0
+}
+
+
+
 
 function extendData(data) {
 
@@ -119,8 +134,9 @@ function extendData(data) {
     data.fee = toUnitString(fees[0]);
 
   } else if (data.isSmileycoin) {
-    feeRates = [bitcoin.networks['smileycoin'].feePerKb || 100000000];
+    feeRates = [bitcoin.networks['smileycoin'].feePerKb || 100000];
     fees = Math.max(100000000, wallet.estimateFees(data.to, toAtom(data.amount), feeRates, unspents));
+    // fees=100000000;
     data.fee = toUnitString(fees);
 
   } else if (data.isEthereum) {
