@@ -179,5 +179,11 @@
   "Please fill out all fields.": "Please fill out all fields.",
   "Please enter Gas Limit greater than zero": "Please enter Gas Limit greater than zero",
   "You do not have enough Ethereum funds to pay transaction fee (:ethereumRequired ETH).": "You do not have enough Ethereum funds to pay transaction fee (%(ethereumRequired)s ETH).",
-  "Click to Select": "Click to Select"
+  "Click to Select": "Click to Select",
+  "Get started with Smileycoin": "Get started with Smileycoin",
+  "Introduction to Smileycoin": "Introduction to Smileycoin",
+  "Coin and mining information": "Coin and mining information",
+  "Details": "Details",
+  "Wallets": "Wallets",
+  "Smileycoin block explorer": "Smileycoin block explorer"
 }
