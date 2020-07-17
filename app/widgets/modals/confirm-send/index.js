@@ -74,7 +74,6 @@ function open(data) {
 }
 
 function updateUrl(){
-  console.log("kallað á checkURL");
   var loc = window.location.search
   loc = loc.split('&')
   if (loc.length > 2) {
