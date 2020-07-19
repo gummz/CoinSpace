@@ -47,21 +47,19 @@ function open(data) {
       }
       return handleTransactionError(err);
     }
-    tx.array.forEach(tx => {
-      wallet.sendTx(tx, function (err, historyTx) {
-        if (err) return handleTransactionError(err);
-  
-        ractive.set('confirmation', false);
-        ractive.set('success', true);
-        ractive.set('onDismiss', ractive.get('onSuccessDismiss'));
-  
-        // update balance & tx history
-        emitter.emit('wallet-ready');
-        if (historyTx) {
-          emitter.emit('append-transactions', [parseHistoryTx(historyTx)]);
-        }
-        //updateUrl();
-      });
+    wallet.sendTx(tx, function (err, historyTx) {
+      if (err) return handleTransactionError(err);
+
+      ractive.set('confirmation', false);
+      ractive.set('success', true);
+      ractive.set('onDismiss', ractive.get('onSuccessDismiss'));
+
+      // update balance & tx history
+      emitter.emit('wallet-ready');
+      if (historyTx) {
+        emitter.emit('append-transactions', [parseHistoryTx(historyTx)]);
+      }
+      //updateUrl();
     });
   });
 
