@@ -33,7 +33,8 @@
       </div>
 
       <span class="_currency dropdown">
-              <select value="{{defaultDonation}}" tabindex="-1" on-change="donate-to-address" >
+            <label for="donations">Donate your SMLY's </label>
+              <select id="donations" value="{{selectedDonation}}" tabindex="-1" on-change="donate-to-address" >
                 {{#donationAddresses}}
                   <option value="{{address}}">{{name}}</option>
                 {{/donationAddresses}}

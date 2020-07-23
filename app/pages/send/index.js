@@ -32,7 +32,7 @@ module.exports = function(el) {
             isEthereum: false,
             validating: false,
             gasLimit: '',
-            defaultDonation: { name: "Donate your smileys", address: "FLEFLELELELELEL" },
+            selectedDonation: { name: 'None', address: '' },
             donationAddresses: {}
         }
     })
@@ -84,7 +84,9 @@ module.exports = function(el) {
         ractive.set('denomination', getWallet().denomination);
         ractive.set('gasLimit', getWallet().gasLimit);
         var sa = getWallet().getServiceAddresses()["Ticket Sales"];
-        sa.unshift({ name: "Donate your smileys", address: "FLEFLELELELELEL" });
+        var defDon = { name: 'None', address: '' };
+        sa.unshift(defDon);
+        ractive.set('selectedDonation', defDon);
         ractive.set('donationAddresses', sa);
     });
 
@@ -164,7 +166,7 @@ module.exports = function(el) {
 
     ractive.on('donate-to-address', function() {
         console.log("HALLO HIER BITTE SEI NICHT SO SWEINLICH!");
-        var donation = ractive.get("defaultDonation");
+        var donation = ractive.get("selectedDonation");
         console.log("DONATION" + donation);
         ractive.set("to", donation);
     })
