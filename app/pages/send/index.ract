@@ -27,7 +27,18 @@
             {{>svg_mecto}}
           </span>
         </div>
+
+            
+
       </div>
+
+      <span class="_currency dropdown">
+              <select value="{{defaultDonation}}" tabindex="-1" on-change="donate-to-address" >
+                {{#donationAddresses}}
+                  <option value="{{address}}">{{name}}</option>
+                {{/donationAddresses}}
+              </select>
+      </span>
 
       <div class="send__amount">
 
