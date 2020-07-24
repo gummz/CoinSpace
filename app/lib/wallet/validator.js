@@ -46,7 +46,7 @@ function validateSend(wallet, to, unitValue, dynamicFees, callback) {
         error.interpolations = { sendableBalance: toUnitString(e.sendableBalance) }
         return callback(error)
       } else {
-        return callback(new Error('You do not have enough funds in your wallet (incl. fee)'))
+        return callback(new Error('You do not have enough funds in your wallet (incl. fee: ' + toUnitString(fee) + ')'))
       }
     } else if (e.message.match(/Insufficient ethereum funds for token transaction/)) {
       error = new Error('You do not have enough Ethereum funds to pay transaction fee (:ethereumRequired ETH).');
