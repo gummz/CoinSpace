@@ -23,6 +23,7 @@ function validateSend(wallet, to, unitValue, dynamicFees, callback) {
     }
     tx = wallet.createTx(to, amount, fee)
   } catch(e) {
+    console.error(e)
     var error;
     if (e.message.match(/Invalid address/)) {
       return callback(new Error('Please enter a valid address to send to'))
