@@ -178,7 +178,7 @@ module.exports = function(el){
           ractive.find('#bitcoin').value = interpolations.sendableBalance;
           return showInfo({message: err.message, interpolations: interpolations})
         }
-        return showError({title: 'Uh Oh...', message: err.message, href: err.href, linkText: err.linkText, interpolations: interpolations})
+        return showError({title: 'Uh Oh...', message: err.message, fee: err.fee, href: err.href, linkText: err.linkText, interpolations: interpolations})
       }
 
       showConfirmation({
