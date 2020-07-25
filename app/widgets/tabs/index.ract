@@ -19,6 +19,12 @@
     <span class="tab__text">{{translate("Exchange")}}</span>
   </a
   -->
+  <a id="addresses_tab" data-tab='addresses' class="tab" on-click="select">
+    <span class="tab__icon">
+      {{>svg_addresses}}
+    </span>
+    <span class="tab__text">{{translate("Address Book")}}</span>
+  </a>
   <a id="history_tab" data-tab='history' class="tab" on-click="select">
     <span class="tab__icon">
       {{>svg_history}}

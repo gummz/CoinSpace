@@ -1,5 +1,6 @@
 'use strict';
-var Ractive = require('ractive/runtime.js')
+var Ractive = require('ractive/runtime.js');
+const { partial } = require('lodash');
 if (process.env.NODE_ENV === 'production') {
   Ractive.DEBUG = false;
 }
@@ -52,6 +53,7 @@ partials.svg_close = require('lib/svg/close.ract')
 partials.svg_exit = require('lib/svg/exit.ract')
 partials.svg_help = require('lib/svg/help.ract')
 partials.svg_hex_large = require('lib/svg/hex_large.ract')
+partials.svg_addresses = require('lib/svg/addresses.ract')
 partials.svg_history = require('lib/svg/history.ract')
 partials.svg_lock = require('lib/svg/lock.ract')
 partials.svg_logo_key = require('lib/svg/logo_key.ract')

@@ -13,6 +13,7 @@ module.exports = function(el){
     send: '#send_tab',
     receive: '#receive_tab',
     // exchange: '#exchange_tab',
+    addresses: '#addresses_tab',
     history: '#history_tab',
     // tokens: '#tokens_tab'
   }
