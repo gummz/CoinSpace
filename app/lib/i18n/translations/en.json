@@ -186,5 +186,7 @@
   "Details": "Details",
   "Wallets": "Wallets",
   "Smileycoin block explorer": "Smileycoin block explorer",
-  "Amount too high. You need to send this amount in smaller parts.": "Amount too high. You need to send this amount in smaller parts."
+  "Amount too high. You need to send this amount in smaller parts.": "Amount too high. You need to send this amount in smaller parts.",
+  "Vote": "Vote", 
+  "Candidate address": "Candidate address"
 }

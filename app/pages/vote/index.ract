@@ -1,0 +1,49 @@
+
+  <div class="vote__form">
+    <form>
+
+      <div class="vote__field">
+        <label class="_label" for="bitcoin">{{translate("Vote")}}</label>
+        <div class="input__container">
+          <input id="fiat" class="_input fiat" type="number" min="0" step="any" on-keyup="fiat-to-bitcoin" on-enter="open-send" on-focus="focusAmountInput" on-blur="blurAmountInput">
+          <span class="_currency dropdown">
+            <select value="{{selectedFiat}}" tabindex="-1">
+              <option value="ok">abc</option>
+              <option value="ok">abc</option>
+              <option value="ok">abc</option>
+            </select>
+          </span>
+        </div>
+      </div>
+
+      <div class="vote__field">
+        <label class="_label" for="to">{{translate("Candidate address")}}</label>
+        <div class="input__container">
+          <input id="to" class="_input" type="text" autocorrect="off" autocapitalize="off" value="{{to}}" />
+        </div>
+      </div>
+
+      <div class="vote__field">
+        <label class="_label" for="bitcoin">{{translate("Amount")}}</label>
+        <div class="input__container">
+          <input id="bitcoin" class="_input" type="number" min="0" step="any" on-keyup="bitcoin-to-fiat" on-enter="open-send" on-focus="focusAmountInput" on-blur="blurAmountInput">
+          <span class="_currency">{{denomination}}</span>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="send__buttons">
+    {{^validating}}
+      <div on-click="open-send" class="send__btn">{{translate("Confirm")}}</div>
+    {{/validating}}
+    {{#validating}}
+      <div class="send__btn--validating">
+        <span class="_icon">
+          {{>svg_refresh}}
+        </span>
+      </div>
+    {{/validating}}
+  </div>
+

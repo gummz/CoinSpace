@@ -11,6 +11,7 @@ var initReceive = require('pages/receive')
 var initExchange = require('pages/exchange')
 var initHistory = require('pages/history')
 var initTokens = require('pages/tokens')
+var initVote = require('pages/vote')
 var Hammer = require('hammerjs')
 
 module.exports = function(el){
@@ -31,7 +32,8 @@ module.exports = function(el){
     receive: initReceive(ractive.find('#receive')),
     exchange: initExchange(ractive.find('#exchange')),
     history: initHistory(ractive.find('#history')),
-    tokens: initTokens(ractive.find('#tokens'))
+    tokens: initTokens(ractive.find('#tokens')),
+    vote: initVote(ractive.find('#vote'))
   }
 
   var currentPage = tabs.send
