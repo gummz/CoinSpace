@@ -6,7 +6,7 @@ var toUnitString = require('lib/convert').toUnitString
 var getTokenNetwork = require('lib/token').getTokenNetwork;
 var getWallet = require('lib/wallet').getWallet
 var strftime = require('strftime')
-var showTransactionDetail = require('widgets/modals/transaction-detail')
+var showAddressDetail = require('widgets/modals/address-detail')
 
 module.exports = function(el){
   var network = getTokenNetwork();
@@ -14,44 +14,9 @@ module.exports = function(el){
     el: el,
     template: require('./index.ract'),
     data: {
-      transactions: [],
-      formatTimestamp: function(timestamp){
-        var date = new Date(timestamp)
-        return strftime('%b %d %l:%M %p', date)
-      },
-      formatConfirmations: function(number){
-        if (number === 1) {
-          return number + ' confirmation'
-        } else {
-          return number + ' confirmations'
-        }
-      },
-      getToAddress: function(tx) {
-        if (network === 'ethereum') {
-          return tx.to;
-        } else if (['bitcoin', 'bitcoincash', 'litecoin', 'smileycoin', 'testnet'].indexOf(network) !== -1) {
-          return tx.outs[0].address;
-        }
-      },
-      isReceived: function(tx) {
-        if (network === 'ethereum') {
-          return tx.to === getWallet().addressString;
-        } else if (['bitcoin', 'bitcoincash', 'litecoin', 'smileycoin', 'testnet'].indexOf(network) !== -1) {
-          return tx.amount > 0;
-        }
-      },
-      isConfirmed: function(confirmations) {
-        return confirmations >= getWallet().minConf;
-      },
-      isFailed: function(tx) {
-        if (network === 'ethereum') {
-          return tx.status === false;
-        } else if (['bitcoin', 'bitcoincash', 'litecoin', 'smileycoin', 'testnet'].indexOf(network) !== -1) {
-          return false;
-        }
-      },
+      addresses: [],
       toUnitString: toUnitString,
-      loadingTx: true,
+      loadingAddr: true,
     }
   })
 
@@ -62,32 +27,21 @@ module.exports = function(el){
     ractive.set('loadingTx', false)
   })
 
-  emitter.on('set-transactions', function(txs) {
+  emitter.on('set-addresses', function(addresses) {
     network = getTokenNetwork();
-    ractive.set('transactions', txs)
-    ractive.set('loadingTx', false)
-  })
-
-  emitter.on('sync', function() {
-    ractive.set('transactions', [])
-    ractive.set('loadingTx', true)
+    ractive.set('addresses', addresses)
+    ractive.set('loadingAddr', false)
   })
 
   ractive.on('show-detail', function(context) {
     var index = context.node.getAttribute('data-index')
     var data = {
-      transaction: ractive.get('transactions')[index],
-      formatTimestamp: ractive.get('formatTimestamp'),
-      formatConfirmations: ractive.get('formatConfirmations'),
-      isReceived: ractive.get('isReceived'),
-      isFailed: ractive.get('isFailed'),
-      isConfirmed: ractive.get('isConfirmed'),
-      toUnitString: ractive.get('toUnitString'),
+      address: ractive.get('addresses')[index],
       isNetwork: function(str) {
         return str === network
       }
     }
-    showTransactionDetail(data)
+    showAddressDetail(data)
   })
 
   return ractive
