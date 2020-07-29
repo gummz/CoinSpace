@@ -18,7 +18,7 @@ module.exports = function(el){
     // tokens: '#tokens_tab'
   }
   var active;
-  function highlightTab(node){
+  function highlightTab(node) {
     if(node !== active && active && active.classList.contains('active')) {
       active.classList.remove('active')
     }

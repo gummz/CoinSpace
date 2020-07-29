@@ -9,6 +9,7 @@ var initTerms = require('widgets/terms')
 var initSend = require('pages/send')
 var initReceive = require('pages/receive')
 var initExchange = require('pages/exchange')
+var initAddresses = require('pages/addresses')
 var initHistory = require('pages/history')
 var initTokens = require('pages/tokens')
 var Hammer = require('hammerjs')
@@ -30,6 +31,7 @@ module.exports = function(el){
     send: initSend(ractive.find('#send')),
     receive: initReceive(ractive.find('#receive')),
     exchange: initExchange(ractive.find('#exchange')),
+    addresses: initAddresses(ractive.find('#addresses')),
     history: initHistory(ractive.find('#history')),
     tokens: initTokens(ractive.find('#tokens'))
   }
@@ -44,6 +46,8 @@ module.exports = function(el){
       } else if (currentPage === tabs.receive) {
         emitter.emit('change-tab', 'exchange')
       } else if (currentPage === tabs.exchange) {
+        emitter.emit('change-tab', 'addresses')
+      } else if (currentPage === tabs.addresses) {
         emitter.emit('change-tab', 'history')
       } else if (currentPage === tabs.history) {
         emitter.emit('change-tab', 'tokens')
