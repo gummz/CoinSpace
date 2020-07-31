@@ -1,15 +1,15 @@
 
 <div class="transactions">
-  {{#loadingTx}}
+  {{#loadingAddr}}
     <div class="transactions__message">
-      <div class="_message">{{translate("Loading transactions...")}}</div>
+      <div class="_message">{{translate("Loading addresses...")}}</div>
     </div>
-  {{/loadingTx}}
-  {{#transactions.length}}
-    <h3 class="_title">{{translate("Your transaction history")}}</h3>
-  {{/transactions.length}}
-  {{#each transactions: index}}
-    <div class="transactions__item" title="{{id}}" data-index="{{index}}" on-click="show-detail">
+  {{/loadingAddr}}
+  {{#addresses.length}}
+    <h3 class="_title">{{translate("Your address book")}}</h3>
+  {{/addresses.length}}
+  {{#each addresses: index}}
+    <div class="addresses__item" title="{{id}}" data-index="{{index}}" on-click="show-detail">
 
       <div class="_detail">
 
@@ -35,14 +35,14 @@
 
     </div>
   {{/each}}
-  {{^transactions}}
-    {{^loadingTx}}
-      <div class="transactions__message">
+  {{^addresses}}
+    {{^loadingAddr}}
+      <div class="addresses__message">
         <div class="_icon">
           {{>svg_help}}
         </div>
-        <div class="_message">{{translate("You do not have any transactions yet")}}</div>
+        <div class="_message">{{translate("You do not have any saved addresses yet")}}</div>
       </div>
-    {{/loadingTx}}
-  {{/transactions}}
+    {{/loadingAddr}}
+  {{/addresses}}
 </div>

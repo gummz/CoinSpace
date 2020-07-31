@@ -187,5 +187,8 @@
   "Wallets": "Wallets",
   "Smileycoin block explorer": "Smileycoin block explorer",
   "Amount too high. You need to send this amount in smaller parts.": "Amount too high. You need to send this amount in smaller parts.",
-  "Address Book": "Address Book"
+  "Address Book": "Address Book",
+  "Loading addresses...": "Loading addresses...",
+  "Your address book": "Your address book",
+  "You do not have any saved addresses yet": "You do not have any saved addresses yet"
 }

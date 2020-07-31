@@ -64,13 +64,10 @@ var Auth = Ractive.extend({
     function onAddrDone(err, addresses) {
       if (err) {
         emitter.emit('set-addresses', [])
-        return onDoneError
+        return onDoneError(err)
       }
       emitter.emit('set-addresses', addresses)
     }
-
-    // db.collection
-    // Needs to follow the onTxSyncDone callback
 
     this.onSyncDone = onSyncDone
     this.onTxSyncDone = onTxSyncDone

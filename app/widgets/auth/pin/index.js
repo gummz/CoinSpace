@@ -87,7 +87,6 @@ module.exports = function(prevPage, data){
       if (userExists) {
         ractive.set('progress', 'Verifying PIN')
         if (CS.walletExists()) { 
-          emitter.emit('retrieve-addr')
           return openWithPin() 
         }
         return setPin();
