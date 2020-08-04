@@ -121,6 +121,10 @@ function openWalletWithPin(pin, network, done, txSyncDone) {
     emitter.emit('wallet-opening', 'Synchronizing Wallet');
     emitter.emit('db-init');
     emitter.emit('addr-init')
+    emitter.once('addr-ready', function(err, addresses) {
+      if (err) return console.error(err)
+      addrDone(null, addresses)
+    })
     
     emitter.once('db-ready', function(err) {
       if (err) return callbackError(err, callbacks);

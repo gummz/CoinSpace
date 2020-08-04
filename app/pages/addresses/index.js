@@ -24,7 +24,7 @@ module.exports = function(el){
     newTxs.forEach(function(tx) {
       ractive.unshift('transactions', tx);
     })
-    ractive.set('loadingTx', false)
+    ractive.set('loadingAddr', false)
   })
 
   emitter.on('set-addresses', function(addresses) {
@@ -37,9 +37,6 @@ module.exports = function(el){
     var index = context.node.getAttribute('data-index')
     var data = {
       address: ractive.get('addresses')[index],
-      isNetwork: function(str) {
-        return str === network
-      }
     }
     showAddressDetail(data)
   })
