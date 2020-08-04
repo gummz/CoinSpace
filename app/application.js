@@ -11,6 +11,9 @@ window.initCSApp = function() {
     var getToken = require('lib/token').getToken;
     var denomination = require('lib/denomination');
 
+    var showConfirmation = require('widgets/modals/confirm-send');
+    var getDynamicFees = require('lib/wallet').getDynamicFees;
+
     var fadeIn = require('lib/transitions/fade.js').fadeIn
     var ads = require('lib/ads');
 
@@ -21,7 +24,6 @@ window.initCSApp = function() {
 
     fixFastClick();
     FastClick.attach(document.body)
-
     initGeoOverlay(document.getElementById('geo-overlay'))
 
     if (process.env.BUILD_TYPE === 'phonegap') {
@@ -61,10 +63,6 @@ window.initCSApp = function() {
         ticker.getExchangeRates(denomination(getToken())).then(function(rates) {
             emitter.emit('ticker', rates);
         }).catch(console.error);
-    }
-
-    function fetchServiceAddresses() {
-
     }
 
     function fixFastClick() {
