@@ -82,7 +82,10 @@ module.exports = function(el) {
     emitter.on('wallet-ready', function() {
         ractive.set('denomination', getWallet().denomination);
         ractive.set('gasLimit', getWallet().gasLimit);
-        var sa = getWallet().getServiceAddresses()["NPO"]; //Breyta
+        var sa = getWallet().getServiceAddresses()["Nonprofit Organization"]; //Breyta
+        if (!sa) {
+            sa = {}
+        }
         var defDon = { name: 'None', address: '' };
         sa.unshift(defDon);
         ractive.set('selectedDonation', defDon);
