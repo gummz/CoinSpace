@@ -20,18 +20,72 @@ var bchaddr = require('bchaddrjs');
 module.exports = function(el){
   var selectedFiat = '';
   var defaultFiat = 'USD';
+  var network = getTokenNetwork();
 
   var ractive = new Ractive({
     el: el,
     template: require('./index.ract'),
     data: {
-      gasLimit: ''
+      votes: [],
+      selectedVote: -1,
+      feeUnspents: [],
+      loadingTx: true,
+      validating: false,
     }
   })
 
   emitter.on('prefill-wallet', function(address, context) {
     if (context !== 'send') return;
     ractive.set('to', address)
+  })
+
+  emitter.on('set-transactions', function(txs) {
+    var votes = [];
+    var fees = [];
+
+    txs.forEach(function(tx) {
+      tx.outs.forEach(function(output, vout) {
+        if (getWallet().addresses.includes(output.address)) {
+          if (tx.ins[0].sequence == 178) {
+            votes.push({
+              address: output.address,
+              amount: output.amount/1e8,
+              txid: tx.id,
+              vout: vout
+            });
+          }
+
+          else if (output.amount >= 1e8) {
+            fees.push({
+              address: output.address,
+              amount: output.amount/1e8,
+              txid: tx.id,
+              vout: vout
+            });
+          }
+        }
+      });
+    });
+
+    network = getTokenNetwork();
+    ractive.set('feeUnspents', fees);
+    ractive.set('votes', votes);
+    ractive.set('loadingTx', false);
+  })
+
+  emitter.on('sync', function() {
+    ractive.set('transactions', [])
+    ractive.set('loadingTx', true)
+  })
+
+  ractive.on('open-vote', function() {
+    console.log("now we are going to vote!")
+
+    var wallet = getWallet();
+    console.log(ractive.get('votes'));
+    console.log(wallet.addresses);
+
+    console.log(wallet.unspents);
   })
 
   return ractive

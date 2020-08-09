@@ -1,3 +1,11 @@
+.vote_info {
+  border: 1px solid #bbb;
+  padding: 10px;
+  margin-bottom: 10px;
+  .break { line-break: anywhere; }
+  code { display: block; }
+}
+
 .vote__field {
 
   position: relative;
