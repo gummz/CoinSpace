@@ -16,6 +16,7 @@ var resolveTo = require('lib/openalias/xhr.js').resolveTo;
 var qrcode = require('lib/qrcode');
 var bchaddr = require('bchaddrjs');
 
+var bitcoin = require('bitcoinjs-lib');
 
 module.exports = function(el){
   var selectedFiat = '';
@@ -29,6 +30,7 @@ module.exports = function(el){
       votes: [],
       selectedVote: -1,
       feeUnspents: [],
+      to: '',
       loadingTx: true,
       validating: false,
     }
@@ -43,9 +45,11 @@ module.exports = function(el){
     var votes = [];
     var fees = [];
 
+    var wallet = getWallet();
+
     txs.forEach(function(tx) {
       tx.outs.forEach(function(output, vout) {
-        if (getWallet().addresses.includes(output.address)) {
+        if (wallet.unspents.some((x) => (x.vout === vout && x.txId == tx.id))) {
           if (tx.ins[0].sequence == 178) {
             votes.push({
               address: output.address,
@@ -79,13 +83,47 @@ module.exports = function(el){
   })
 
   ractive.on('open-vote', function() {
-    console.log("now we are going to vote!")
-
     var wallet = getWallet();
-    console.log(ractive.get('votes'));
-    console.log(wallet.addresses);
 
-    console.log(wallet.unspents);
+    var selectedVote = ractive.get('selectedVote');
+    var voteUnspent = ractive.get('votes')[selectedVote]
+
+    var feeUnspent = ractive.get('feeUnspents')[0]
+
+    var voteKey = wallet.getPrivateKeyForAddress(voteUnspent.address);
+    var feeKey = wallet.getPrivateKeyForAddress(feeUnspent.address);
+
+    network = getTokenNetwork();
+
+    bitcoin.networks = _.merge(bitcoin.networks, {
+      smileycoin: {
+        dustThreshold: 0,
+        dustSoftThreshold: 0,
+        feePerKb: 100000
+      }
+    });
+
+    var network = bitcoin.networks[network];
+    var builder = new bitcoin.TransactionBuilder(network)
+
+    builder.addInput(voteUnspent.txid, voteUnspent.vout, 179);
+    builder.addInput(feeUnspent.txid, feeUnspent.vout);
+
+    builder.addOutput(ractive.get('to'), voteUnspent.amount*1e8);
+
+    if (feeUnspent.amount > 1) {
+      builder.addOutput(feeUnspent.address, (feeUnspent.amount-1)*1e8);
+    }
+
+    builder.sign(0, voteKey);
+    builder.sign(1, feeKey);
+
+    console.log(builder.build().toHex());
+
+    wallet.sendTx(builder.build(), function (err, historyTx) {
+      console.log(historyTx);
+    });
+ 
   })
 
   return ractive
