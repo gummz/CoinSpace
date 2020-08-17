@@ -49,6 +49,8 @@
     </form>
   </div>
 
+  <p style='margin: 14px 0px;'>Note: After pressing confirm, you can view the history tab to verify that the vote was sent.</p>
+
   <div class="send__buttons">
     {{^validating}}
       <div on-click="open-vote" class="send__btn">{{translate("Confirm")}}</div>
