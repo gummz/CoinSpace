@@ -10,6 +10,7 @@ var initSend = require('pages/send')
 var initReceive = require('pages/receive')
 var initExchange = require('pages/exchange')
 var initHistory = require('pages/history')
+var initGetSMLY = require('pages/getsmly')
 var initTokens = require('pages/tokens')
 var initVote = require('pages/vote')
 var Hammer = require('hammerjs')
@@ -32,6 +33,7 @@ module.exports = function(el){
     receive: initReceive(ractive.find('#receive')),
     exchange: initExchange(ractive.find('#exchange')),
     history: initHistory(ractive.find('#history')),
+	get_smly: initGetSMLY(ractive.find('#get_smly')),
     tokens: initTokens(ractive.find('#tokens')),
     vote: initVote(ractive.find('#vote'))
   }
@@ -48,7 +50,9 @@ module.exports = function(el){
       } else if (currentPage === tabs.exchange) {
         emitter.emit('change-tab', 'history')
       } else if (currentPage === tabs.history) {
-        emitter.emit('change-tab', 'tokens')
+        emitter.emit('change-tab', 'get_smly')
+	  } else if (currentPage === tabs.get_smly) {
+		emitter.emit('change-tab', 'tokens')
       }
     })
 
