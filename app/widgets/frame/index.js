@@ -52,12 +52,18 @@ module.exports = function(el){
       } else if (currentPage === tabs.history) {
         emitter.emit('change-tab', 'get_smly')
 	  } else if (currentPage === tabs.get_smly) {
+		emitter.emit('change-tab', 'vote')
+	  } else if (currentPage === tabs.vote) {
 		emitter.emit('change-tab', 'tokens')
       }
     })
 
     Hammer(ractive.find('#main'), {velocity: 0.1}).on('swiperight', function() {
       if (currentPage === tabs.tokens) {
+        emitter.emit('change-tab', 'vote')
+	  } else if (currentPage === tabs.vote) {
+        emitter.emit('change-tab', 'getsmly')
+	  } else if (currentPage === tabs.getsmly) {
         emitter.emit('change-tab', 'history')
       } else if (currentPage === tabs.history) {
         emitter.emit('change-tab', 'exchange')
