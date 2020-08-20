@@ -25,11 +25,12 @@
     </div>
 
     <div id="paypal_options">
+	
       <form id="PP5E" class="paypal_option" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_donations">
         <input type="hidden" name="business" value="education.in.a.suitcase@gmail.com">
         <input type="hidden" name="item_name" value="Smileycoins">
-        <input type="hidden" name="return" value="http://localhost:8000">
+        <input type="hidden" name="return" value="https://wallet.smileyco.in/">
         <input type="hidden" name="button_subtype" value="services">
         <input type="hidden" name="currency_code" value="EUR">
         <input type="hidden" name="amount" value="5.00">
@@ -47,7 +48,7 @@
         <input type="hidden" name="cmd" value="_donations">
         <input type="hidden" name="business" value="education.in.a.suitcase@gmail.com">
         <input type="hidden" name="item_name" value="Smileycoins">
-        <input type="hidden" name="return" value="http://localhost:8000">
+        <input type="hidden" name="return" value="https://wallet.smileyco.in/">
         <input type="hidden" name="button_subtype" value="services">
         <input type="hidden" name="currency_code" value="EUR">
         <input type="hidden" name="amount" value="10.00">
@@ -65,7 +66,7 @@
         <input type="hidden" name="cmd" value="_donations">
         <input type="hidden" name="business" value="education.in.a.suitcase@gmail.com">
         <input type="hidden" name="item_name" value="Smileycoins">
-        <input type="hidden" name="return" value="http://localhost:8000">
+        <input type="hidden" name="return" value="https://wallet.smileyco.in/">
         <input type="hidden" name="button_subtype" value="services">
         <input type="hidden" name="currency_code" value="EUR">
         <input type="hidden" name="amount" value="20.00">
@@ -83,7 +84,7 @@
         <input type="hidden" name="cmd" value="_donations">
         <input type="hidden" name="business" value="education.in.a.suitcase@gmail.com">
         <input type="hidden" name="item_name" value="Smileycoins">
-        <input type="hidden" name="return" value="http://localhost:8000">
+        <input type="hidden" name="return" value="https://wallet.smileyco.in/">
         <input type="hidden" name="button_subtype" value="services">
         <input type="hidden" name="currency_code" value="EUR">
         <input type="hidden" name="amount" value="50.00">
