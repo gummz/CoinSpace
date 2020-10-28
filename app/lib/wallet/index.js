@@ -102,7 +102,7 @@ function setUsername(username, callback) {
   auth.setUsername(id, username, callback);
 }
 
-function openWalletWithPin(pin, network, done, txSyncDone) {
+function openWalletWithPin(pin, network, done, txSyncDone, addrDone) {
   var callbacks = [done, txSyncDone]
   var credentials = walletDb.getCredentials();
   var id = credentials.id

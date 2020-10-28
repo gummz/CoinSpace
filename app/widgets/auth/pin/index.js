@@ -130,6 +130,7 @@ module.exports = function(prevPage, data){
   function openWithPin(){
     CS.openWalletWithPin(getPin(), ractive.getTokenNetwork(),
                          ractive.onSyncDone, ractive.onTxSyncDone)
+    emitter.emit('load-addresses', 'addresses')
   }
 
   function setPin(){

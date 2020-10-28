@@ -7,6 +7,7 @@ var getTokenNetwork = require('lib/token').getTokenNetwork;
 var getWallet = require('lib/wallet').getWallet
 var strftime = require('strftime')
 var showAddressDetail = require('widgets/modals/address-detail')
+var getAddresses = require('./db').getAddresses
 
 module.exports = function(el){
   var network = getTokenNetwork();
@@ -20,15 +21,15 @@ module.exports = function(el){
     }
   })
 
-  emitter.on('append-transactions', function(newTxs){
-    newTxs.forEach(function(tx) {
-      ractive.unshift('transactions', tx);
+  emitter.on('append-addresses', function(newAddrs){
+    newAddrs.forEach(function(addr) {
+      ractive.unshift('addresses', addr);
     })
     ractive.set('loadingAddr', false)
   })
 
-  emitter.on('set-addresses', function(addresses) {
-    network = getTokenNetwork();
+  emitter.on('load-addresses', function(str) {
+    var addresses = getAddresses(str)
     ractive.set('addresses', addresses)
     ractive.set('loadingAddr', false)
   })
